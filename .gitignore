@@ -1,0 +1,44 @@
+# Environment files — NEVER commit these
+.env
+.env.local
+.env.production
+.env.*.local
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Docker
+docker-compose.override.yml
+
+# Node (if any)
+node_modules/
+
+# Alembic — keep migrations but not cache
+backend/alembic/__pycache__/

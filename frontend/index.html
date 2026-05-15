@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PuriGuide — Your Complete Puri Travel Companion</title>
+  <meta name="description" content="Discover temples, homestays, local food, and experiences in Puri, Odisha. Book homestays and local services." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/booking.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        Puri<span>Guide</span>
+      </a>
+      <button class="navbar-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="temples.html">Temples</a></li>
+        <li><a href="homestays.html">Homestays</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="food.html">Food</a></li>
+        <li><a href="travel-tips.html">Travel Tips</a></li>
+        <li><a href="services.html#booking" class="navbar-cta">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg" style="background-image: url('images/placeholders/hero-bg.jpg')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Discover Sacred & Serene Puri</h1>
+      <p>Your complete travel companion for temples, homestays, local food, and experiences in the holiest beach city of India.</p>
+      <div class="hero-ctas">
+        <a href="#explore" class="btn btn-primary btn-lg">Explore the Guide</a>
+        <a href="homestays.html" class="btn btn-secondary btn-lg">Book a Homestay</a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <i class="fas fa-chevron-down"></i> Scroll to explore
+    </div>
+  </section>
+
+  <section id="explore" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2><span class="section-title-accent">Explore Puri</span></h2>
+        <p>Temples, beaches, culture, and cuisine — everything you need for the perfect Puri experience.</p>
+      </div>
+      <div class="grid-3">
+        <a href="temples.html" class="card" style="text-decoration:none">
+          <div class="card-image-wrapper">
+            <img alt="Sacred Temples" data-placeholder="Sacred Temples" data-emoji="🛕"
+              onerror="this.parentElement.innerHTML='<div style=\'background:#F5EDD8;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%;\'><span style=\'font-size:2.5rem\'>🏠</span><span style=\'color:#6B4C3B;font-size:0.8rem;margin-top:8px\'>Photo coming soon</span></div>'" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">🛕 Sacred Temples</h3>
+            <p class="card-description">Jagannath Temple, Konark Sun Temple, and more spiritual destinations.</p>
+          </div>
+        </a>
+        <a href="homestays.html" class="card" style="text-decoration:none">
+          <div class="card-image-wrapper">
+            <img src="images/asiyana/hall.jpg" alt="Homestays in Puri" style="width:100%;height:100%;object-fit:cover;"
+              onerror="this.parentElement.innerHTML='<div style=\'display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%\'>🏠<br>Photo coming soon</div>'" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">🏠 Comfortable Homestays</h3>
+            <p class="card-description">Handpicked properties near the beach and temple. Home away from home.</p>
+          </div>
+        </a>
+        <a href="services.html" class="card" style="text-decoration:none">
+          <div class="card-image-wrapper">
+            <img alt="Local Services" data-placeholder="Local Services" data-emoji="🚗"
+              onerror="this.parentElement.innerHTML='<div style=\'background:#F5EDD8;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%;\'><span style=\'font-size:2.5rem\'>🏠</span><span style=\'color:#6B4C3B;font-size:0.8rem;margin-top:8px\'>Photo coming soon</span></div>'" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">🚗 Local Services</h3>
+            <p class="card-description">Car rentals, bike rentals, airport transfers, guided tours and more.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color: var(--color-bg-warm)">
+    <div class="container">
+      <div class="section-header">
+        <h2><span class="section-title-accent">Our Homestays</span></h2>
+        <p>Two handpicked properties in Puri — personally managed for your comfort.</p>
+      </div>
+      <div class="grid-3" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">
+        <a href="homestays.html" class="card" style="text-decoration:none">
+          <div class="card-image-wrapper">
+            <img src="images/asiyana/hall.jpg" alt="Asiyana Homestay"
+              onerror="this.parentElement.innerHTML='<div style=\'background:#F5EDD8;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%;\'><span style=\'font-size:2.5rem\'>🏠</span><span style=\'color:#6B4C3B;font-size:0.8rem;margin-top:8px\'>Photo coming soon</span></div>'" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Asiyana</h3>
+            <p class="card-description">Beachside 1BHK · 100m to Sea · From ₹2,500/night</p>
+          </div>
+        </a>
+        <a href="homestays.html" class="card" style="text-decoration:none">
+          <div class="card-image-wrapper">
+            <img src="images/tulsi-vihar/bedroom.jpg" alt="Tulsi Vihar Homestay"
+              onerror="this.parentElement.innerHTML='<div style=\'background:#F5EDD8;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;width:100%;\'><span style=\'font-size:2.5rem\'>🏠</span><span style=\'color:#6B4C3B;font-size:0.8rem;margin-top:8px\'>Photo coming soon</span></div>'" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Tulsi Vihar</h3>
+            <p class="card-description">Peaceful Studio · Near Samuka Beach · From ₹2,000/night</p>
+          </div>
+        </a>
+      </div>
+      <div class="text-center mt-3">
+        <a href="homestays.html" class="btn btn-primary">View All Homestays</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color: var(--color-bg-warm)">
+    <div class="container">
+      <div class="section-header">
+        <h2><span class="section-title-accent">Must-Try Local Food</span></h2>
+        <p>Puri's culinary scene is a delight — from Mahaprasad to beachside seafood.</p>
+      </div>
+      <div class="grid-4" id="home-food-grid"></div>
+      <div class="text-center mt-3">
+        <a href="food.html" class="btn btn-outline">See Full Food Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2><span class="section-title-accent">Why PuriGuide?</span></h2>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="cursor:default">
+          <div class="card-body text-center">
+            <div style="font-size:2.5rem;margin-bottom:12px">🏠</div>
+            <h3 class="card-title">Handpicked Stays</h3>
+            <p class="card-description">Personally curated homestays with verified amenities and honest descriptions.</p>
+          </div>
+        </div>
+        <div class="card" style="cursor:default">
+          <div class="card-body text-center">
+            <div style="font-size:2.5rem;margin-bottom:12px">📞</div>
+            <h3 class="card-title">Personal Caretaker</h3>
+            <p class="card-description">A dedicated caretaker on WhatsApp to help with bookings, questions, and arrangements.</p>
+          </div>
+        </div>
+        <div class="card" style="cursor:default">
+          <div class="card-body text-center">
+            <div style="font-size:2.5rem;margin-bottom:12px">💰</div>
+            <h3 class="card-title">Best Local Prices</h3>
+            <p class="card-description">No middlemen. Direct bookings at the best prices with complete transparency.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>PuriGuide</h3>
+          <p>Your Complete Puri Travel Companion. Discover temples, book homestays, explore local cuisine, and experience the magic of Puri.</p>
+          <div class="footer-social">
+            <a href="https://facebook.com/puriguide" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/puriguide" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="temples.html">Temples</a></li>
+            <li><a href="homestays.html">Homestays</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="food.html">Food Guide</a></li>
+            <li><a href="travel-tips.html">Travel Tips</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Car Rental</a></li>
+            <li><a href="services.html">Bike Rental</a></li>
+            <li><a href="services.html">Airport Transfer</a></li>
+            <li><a href="services.html">Temple Tour</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone"></i> +91-XXXXXXXXXX
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i> contact@puriguide.in
+          </div>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i> Puri, Odisha, India
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 PuriGuide. All rights reserved.</span>
+        <span>Made with ❤️ in Puri</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      App.renderCards("home-food-grid", CONFIG.FOOD, (food) => App.createFoodCard(food));
+    });
+  </script>
+</body>
+</html>

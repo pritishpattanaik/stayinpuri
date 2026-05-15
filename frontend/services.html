@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Services in Puri — PuriGuide</title>
+  <meta name="description" content="Car rental, bike rental, airport transfer, guided temple tours and more local services in Puri, Odisha." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/booking.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">Puri<span>Guide</span></a>
+      <button class="navbar-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="navbar-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="temples.html">Temples</a></li>
+        <li><a href="homestays.html">Homestays</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="food.html">Food</a></li>
+        <li><a href="travel-tips.html">Travel Tips</a></li>
+        <li><a href="#booking" class="navbar-cta">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height:45vh">
+    <div class="hero-bg" style="background-image: url('images/placeholders/car-rental.jpg')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>🚗 Local Services</h1>
+      <p>Everything you need to explore Puri hassle-free — from car rentals to guided temple tours.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2><span class="section-title-accent">Our Services</span></h2>
+        <p>Reliable, affordable, and arranged by your local caretaker.</p>
+      </div>
+      <div class="grid-3" id="services-grid"></div>
+    </div>
+  </section>
+
+  <section id="booking" class="booking-section">
+    <div class="container">
+      <div class="booking-wrapper">
+        <form id="booking-form" class="booking-form">
+          <h2>Book a Service</h2>
+          <p>Select a service and fill in your details. We'll confirm via WhatsApp within 2 hours.</p>
+
+          <div class="form-group">
+            <label for="service-type">Service Type *</label>
+            <select id="service-type" required>
+              <option value="">Select service...</option>
+            </select>
+          </div>
+
+          <div id="property-fields" class="form-group" style="display:none">
+            <label for="property-select">Choose Property</label>
+            <select id="property-select">
+              <option value="">Select property...</option>
+              <option value="asiyana">Asiyana — ₹2,500/night</option>
+              <option value="tulsi-vihar">Tulsi Vihar — ₹2,000/night</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="guest-name">Full Name *</label>
+              <input type="text" id="guest-name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="num-guests">Number of Guests</label>
+              <select id="num-guests">
+                <option value="1">1 Guest</option>
+                <option value="2" selected>2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5+ Guests</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="guest-email">Email</label>
+              <input type="email" id="guest-email" placeholder="your@email.com" />
+            </div>
+            <div class="form-group">
+              <label for="guest-phone">Phone / WhatsApp *</label>
+              <input type="tel" id="guest-phone" placeholder="+91 XXXXX XXXXX" required />
+            </div>
+          </div>
+
+          <div id="date-fields" class="form-row" style="display:none">
+            <div class="form-group">
+              <label for="checkin-date">Check-in Date</label>
+              <input type="date" id="checkin-date" />
+            </div>
+            <div class="form-group">
+              <label for="checkout-date">Check-out Date</label>
+              <input type="date" id="checkout-date" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="special-requests">Special Requests</label>
+            <textarea id="special-requests" placeholder="Any special requirements..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary booking-submit-btn">
+            <i class="fas fa-paper-plane"></i> Submit Booking Request
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>PuriGuide</h3>
+          <p>Your Complete Puri Travel Companion.</p>
+          <div class="footer-social">
+            <a href="https://facebook.com/puriguide" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/puriguide" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="temples.html">Temples</a></li>
+            <li><a href="homestays.html">Homestays</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="food.html">Food Guide</a></li>
+            <li><a href="travel-tips.html">Travel Tips</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Car Rental</a></li>
+            <li><a href="services.html">Bike Rental</a></li>
+            <li><a href="services.html">Airport Transfer</a></li>
+            <li><a href="services.html">Temple Tour</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i> +91-XXXXXXXXXX</div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i> contact@puriguide.in</div>
+          <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> Puri, Odisha, India</div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 PuriGuide. All rights reserved.</span>
+        <span>Made with ❤️ in Puri</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      App.renderCards("services-grid", CONFIG.SERVICES, (svc) => App.createServiceCard(svc));
+    });
+  </script>
+</body>
+</html>
