@@ -28,10 +28,12 @@ def upgrade() -> None:
         sa.Column('description', sa.Text(), nullable=True),
         sa.Column('capacity', sa.Integer(), nullable=True),
         sa.Column('bedrooms', sa.Integer(), nullable=True),
-        sa.Column('price_per_night', sa.Float(), nullable=True),
+        sa.Column('price_per_night', sa.Integer(), nullable=False),
         sa.Column('amenities', sa.String(length=255), nullable=True),
         sa.Column('image_url', sa.String(length=255), nullable=True),
         sa.Column('is_active', sa.Boolean(), nullable=True),
+        sa.Column('created_at', sa.DateTime(), nullable=True),
+        sa.Column('updated_at', sa.DateTime(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('slug')
     )
@@ -43,11 +45,12 @@ def upgrade() -> None:
         sa.Column('name', sa.String(length=100), nullable=False),
         sa.Column('slug', sa.String(length=50), nullable=False),
         sa.Column('description', sa.Text(), nullable=True),
-        sa.Column('price', sa.Float(), nullable=True),
+        sa.Column('price', sa.Integer(), nullable=False),
         sa.Column('price_unit', sa.String(length=50), nullable=True),
         sa.Column('icon', sa.String(length=50), nullable=True),
         sa.Column('image_url', sa.String(length=255), nullable=True),
         sa.Column('is_active', sa.Boolean(), nullable=True),
+        sa.Column('created_at', sa.DateTime(), nullable=True),
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('slug')
     )
@@ -63,8 +66,8 @@ def upgrade() -> None:
         sa.Column('guest_email', sa.String(length=100), nullable=True),
         sa.Column('guest_phone', sa.String(length=20), nullable=False),
         sa.Column('num_guests', sa.Integer(), nullable=True),
-        sa.Column('checkin_date', sa.Date(), nullable=True),
-        sa.Column('checkout_date', sa.Date(), nullable=True),
+        sa.Column('checkin_date', sa.String(length=20), nullable=True),
+        sa.Column('checkout_date', sa.String(length=20), nullable=True),
         sa.Column('special_requests', sa.Text(), nullable=True),
         sa.Column('total_amount', sa.Float(), nullable=True),
         sa.Column('status', sa.String(length=20), nullable=True),
