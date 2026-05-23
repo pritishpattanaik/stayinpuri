@@ -1,3 +1,5 @@
+from typing import Optional, List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -39,9 +41,9 @@ async def create_booking(booking_data: BookingCreate, db: AsyncSession = Depends
     return booking
 
 
-@router.get("/", response_model=list[BookingResponse])
+@router.get("/", response_model=List[BookingResponse])
 async def list_bookings(
-    status: str | None = None, db: AsyncSession = Depends(get_db)
+    status: Optional[str] = None, db: AsyncSession = Depends(get_db)
 ):
     query = select(Booking).order_by(Booking.created_at.desc())
     if status:
