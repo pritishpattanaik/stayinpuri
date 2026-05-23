@@ -67,3 +67,20 @@ class Booking(Base):
     total_amount: Mapped[float | None] = mapped_column(Float, nullable=True)
     status: Mapped[str] = mapped_column(String(20), default="pending")
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class IcalBooking(Base):
+    __tablename__ = "ical_bookings"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    uid: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
+    property_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    platform: Mapped[str] = mapped_column(String(50), nullable=False)
+    summary: Mapped[str] = mapped_column(String(255), nullable=True)
+    dtstart: Mapped[str] = mapped_column(String(20), nullable=False)
+    dtend: Mapped[str] = mapped_column(String(20), nullable=False)
+    status: Mapped[str] = mapped_column(String(20), default="CONFIRMED")
+    hash: Mapped[str] = mapped_column(String(64), nullable=True)
+    first_seen: Mapped[str] = mapped_column(String(50), nullable=True)
+    last_seen: Mapped[str] = mapped_column(String(50), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
