@@ -1,7 +1,6 @@
 from contextlib import asynccontextmanager
 import os
 from pathlib import Path
-from typing import Callable
 
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import FileResponse
@@ -60,25 +59,49 @@ async def site_config():
     )
 
 
-# Mount static files for assets (CSS, JS, images)
-frontend_path = Path(__file__).parent.parent / "frontend"
+# Mount static files - use absolute path based on deployment
+# Get the directory containing this file (app/) and go up twice to reach puriguide/
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+frontend_path = BASE_DIR / "frontend"
+
+print(f"DEBUG: BASE_DIR = {BASE_DIR}")
+print(f"DEBUG: frontend_path = {frontend_path}")
+print(f"DEBUG: frontend exists = {frontend_path.exists()}")
+
 if frontend_path.exists():
-    app.mount("/css", StaticFiles(directory=str(frontend_path / "css")), name="css")
-    app.mount("/js", StaticFiles(directory=str(frontend_path / "js")), name="js")
-    app.mount("/images", StaticFiles(directory=str(frontend_path / "images")), name="images")
+    # Mount asset directories
+    css_path = frontend_path / "css"
+    js_path = frontend_path / "js"
+    images_path = frontend_path / "images"
+
+    if css_path.exists():
+        app.mount("/css", StaticFiles(directory=str(css_path)), name="css")
+    if js_path.exists():
+        app.mount("/js", StaticFiles(directory=str(js_path)), name="js")
+    if images_path.exists():
+        app.mount("/images", StaticFiles(directory=str(images_path)), name="images")
 
     # Catch-all route for HTML files
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
+        # Serve API docs first
+        if full_path == "docs" or full_path == "openapi.json":
+            return {"detail": "Use /api/health for API"}
+
         file_path = frontend_path / full_path
 
         # If it's a file, serve it
         if file_path.is_file():
             return FileResponse(file_path)
 
-        # If directory, try index.html
-        if (file_path / "index.html").is_file():
-            return FileResponse(file_path / "index.html")
+        # If requesting a directory path without trailing slash, try with .html
+        if not full_path and (frontend_path / "index.html").is_file():
+            return FileResponse(frontend_path / "index.html")
+
+        # Try appending .html
+        html_path = frontend_path / f"{full_path}.html"
+        if html_path.is_file():
+            return FileResponse(html_path)
 
         # Default to index.html for SPA-like behavior
         index_file = frontend_path / "index.html"
