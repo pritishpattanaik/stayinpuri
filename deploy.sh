@@ -44,6 +44,8 @@ su - postgres -c "psql -c \"CREATE DATABASE ${DB_NAME};\"" 2>/dev/null || echo "
 su - postgres -c "psql -c \"DROP USER IF EXISTS ${DB_USER};\"" 2>/dev/null || true
 su - postgres -c "psql -c \"CREATE USER ${DB_USER} WITH PASSWORD '${DB_PASS}';\"" 2>/dev/null || echo "User may exist"
 su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO ${DB_USER};\"" 2>/dev/null
+su - postgres -c "psql -d ${DB_NAME} -c \"GRANT ALL ON SCHEMA public TO ${DB_USER};\"" 2>/dev/null
+su - postgres -c "psql -d ${DB_NAME} -c \"ALTER DATABASE ${DB_NAME} OWNER TO ${DB_USER};\"" 2>/dev/null
 print_success "Database '${DB_NAME}' ready"
 
 print_info "Step 3: Getting repository..."
