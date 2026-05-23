@@ -1,6 +1,9 @@
 from contextlib import asynccontextmanager
+import os
+from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, responses
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
@@ -52,3 +55,11 @@ async def site_config():
         caretaker_phone=settings.CARETAKER_PHONE,
         caretaker_name=settings.CARETAKER_NAME,
     )
+
+
+# Mount static files from frontend directory
+frontend_path = Path(__file__).parent.parent / "frontend"
+if frontend_path.exists():
+    app.mount("/", StaticFiles(directory=str(frontend_path), html=True), name="frontend")
+else:
+    print(f"Warning: Frontend directory not found at {frontend_path}")
