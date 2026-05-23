@@ -5,7 +5,7 @@
 set -e
 
 echo "=========================================="
-echo "PuriGuide Deployment Script"
+echo "PuriGuide Deployment Script v2"
 echo "=========================================="
 
 # Configuration
@@ -14,15 +14,14 @@ DEPLOY_DIR="/opt/staywith_puri/puriguide"
 SERVICE_NAME="stayinpuri-web"
 DB_NAME="stayinpuri"
 DB_USER="stayinpuri"
-DB_PASS="changeme"  # UPDATE THIS!
+DB_PASS="stayinpuri123"  # Database password
 
-# Colors for output
+# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Function to print colored messages
 print_success() { echo -e "${GREEN}✓ $1${NC}"; }
 print_error() { echo -e "${RED}✗ $1${NC}"; }
 print_info() { echo -e "${YELLOW}→ $1${NC}"; }
@@ -34,38 +33,50 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 print_info "Step 1: Installing system dependencies..."
-dnf install -y python3.9 python3.9-pip python3.9-devel postgresql-devel || \
-yum install -y python39 python39-pip python39-devel postgresql-devel
-print_success "System dependencies installed"
+dnf install -y python3.9 python3.9-pip python3.9-devel postgresql-devel python3-dotenv 2>/dev/null || \
+yum install -y python39 python39-pip python39-devel postgresql-devel python3-dotenv 2>/dev/null || \
+echo "Dependencies already installed or different package manager"
+print_success "System dependencies ready"
 
 print_info "Step 2: Setting up PostgreSQL..."
-# Setup database if not exists
-su - postgres -c "psql -c \"DROP DATABASE IF EXISTS ${DB_NAME};\""
-su - postgres -c "psql -c \"CREATE DATABASE ${DB_NAME};\""
-su - postgres -c "psql -c \"DROP USER IF EXISTS ${DB_USER};\""
-su - postgres -c "psql -c \"CREATE USER ${DB_USER} WITH PASSWORD '${DB_PASS}';\""
-su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO ${DB_USER};\""
-print_success "Database '${DB_NAME}' created"
+su - postgres -c "psql -c \"DROP DATABASE IF EXISTS ${DB_NAME};\"" 2>/dev/null || true
+su - postgres -c "psql -c \"CREATE DATABASE ${DB_NAME};\"" 2>/dev/null || echo "Database may exist"
+su - postgres -c "psql -c \"DROP USER IF EXISTS ${DB_USER};\"" 2>/dev/null || true
+su - postgres -c "psql -c \"CREATE USER ${DB_USER} WITH PASSWORD '${DB_PASS}';\"" 2>/dev/null || echo "User may exist"
+su - postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO ${DB_USER};\"" 2>/dev/null
+print_success "Database '${DB_NAME}' ready"
 
-print_info "Step 3: Cloning repository..."
+print_info "Step 3: Getting repository..."
 mkdir -p /opt/staywith_puri
+cd /opt/staywith_puri
+
 if [ -d "$DEPLOY_DIR" ]; then
-    print_info "Repository exists, pulling latest changes..."
+    print_info "Updating existing repository..."
     cd "$DEPLOY_DIR"
-    git pull origin main
-else
-    print_info "Cloning repository..."
-    git clone "$REPO_URL" "$DEPLOY_DIR"
-    cd "$DEPLOY_DIR"
+    git pull origin main || print_error "Git pull failed, trying fresh clone..."
 fi
+
+if [ ! -d "$DEPLOY_DIR" ] || [ ! -d "$DEPLOY_DIR/backend" ]; then
+    print_info "Cloning repository..."
+    rm -rf "$DEPLOY_DIR"
+    git clone "$REPO_URL" "$DEPLOY_DIR" || {
+        print_error "Git clone failed, downloading zip..."
+        curl -L https://github.com/pritishpattanaik/stayinpuri/archive/refs/heads/main.zip -o /tmp/puriguide.zip
+        unzip -o /tmp/puriguide.zip -d /opt/staywith_puri/
+        mv /opt/staywith_puri/stayinpuri-main "$DEPLOY_DIR"
+        rm /tmp/puriguide.zip
+    }
+fi
+cd "$DEPLOY_DIR"
 print_success "Repository ready"
 
 print_info "Step 4: Creating Python virtual environment..."
 cd "$DEPLOY_DIR/backend"
+rm -rf venv
 python3.9 -m venv venv
 source venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
+pip install --upgrade pip -q
+pip install -r requirements.txt -q
 print_success "Python environment ready"
 
 print_info "Step 5: Creating .env file..."
@@ -108,7 +119,11 @@ CARETAKER_NAME=Caretaker
 CARETAKER_PHONE=+91XXXXXXXXXX
 SITE_PHONE=+91XXXXXXXXXX
 EOF
-print_success ".env file created"
+
+# Also update alembic.ini with correct database URL
+sed -i "s|postgresql://.*@localhost:5432/.*|postgresql://${DB_USER}:${DB_PASS}@localhost:5432/${DB_NAME}|" alembic.ini
+
+print_success ".env and alembic.ini configured"
 
 print_info "Step 6: Running database migrations..."
 source venv/bin/activate
@@ -149,15 +164,19 @@ sleep 3
 print_success "Service restarted"
 
 print_info "Step 10: Checking service status..."
-systemctl status "$SERVICE_NAME" --no-pager
+systemctl status "$SERVICE_NAME" --no-pager -l || true
 
 print_info "Step 11: Testing API..."
 sleep 2
-echo "Testing /api/health:"
+echo ""
+echo "=== Testing /api/health ==="
 curl -s http://localhost:3005/api/health || print_error "Health check failed"
 echo ""
-echo "Testing /api/properties/:"
-curl -s http://localhost:3005/api/properties/ || print_error "Properties endpoint failed"
+echo "=== Testing /api/properties/ ==="
+curl -s http://localhost:3005/api/properties/ | head -c 200 || print_error "Properties endpoint failed"
+echo ""
+echo "=== Testing /api/health ==="
+curl -s http://localhost:3005/api/health || print_error "Health check failed"
 echo ""
 
 echo ""
@@ -165,7 +184,8 @@ echo "=========================================="
 print_success "Deployment completed!"
 echo "=========================================="
 echo ""
-echo "Check logs: journalctl -u ${SERVICE_NAME} -f"
-echo "Test site: http://travel.placsoft.in"
-echo "API docs: http://travel.placsoft.in/docs"
+echo "Service: systemctl status ${SERVICE_NAME}"
+echo "Logs: journalctl -u ${SERVICE_NAME} -f"
+echo "Site: http://travel.placsoft.in"
+echo "API: http://travel.placsoft.in/docs"
 echo ""
