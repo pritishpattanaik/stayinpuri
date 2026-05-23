@@ -2,9 +2,9 @@ from logging.config import fileConfig
 import os
 from dotenv import load_dotenv
 
-from sqlalchemy import engine_from_config
+from sqlalchemy import engine_from_config, create_engine
 from sqlalchemy import pool
-
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from alembic import context
 
 # Load environment variables from .env file
@@ -14,9 +14,12 @@ load_dotenv()
 # access to the values within the .ini file in use.
 config = context.config
 
-# Override sqlalchemy.url from environment variable
-if os.getenv("DATABASE_URL"):
-    config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+# Get the async database URL and convert to sync URL for Alembic
+database_url = os.getenv("DATABASE_URL", "")
+if database_url:
+    # Convert asyncpg+asyncpg:// to postgresql+psycopg2:// for migrations
+    sync_url = database_url.replace("+asyncpg", "").replace("postgresql://", "postgresql+psycopg2://")
+    config.set_main_option("sqlalchemy.url", sync_url)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
